@@ -7,11 +7,6 @@ using agrisynth_backend.Shared.Domain.Repositories;
 using agrisynth_backend.Shared.Infrastructure.Persistence.EFC.Configuration;
 using agrisynth_backend.Shared.Infrastructure.Persistence.EFC.Repositories;
 using agrisynth_backend.Shared.Interfaces.ASP.Configuration;
-using agrisynth_backend.Collaboration.Domain.Repositories;
-using agrisynth_backend.Collaboration.Domain.Services;
-using agrisynth_backend.Collaboration.Infrastructure.Persistence.EFC.Repositories;
-using agrisynth_backend.Collaboration.Application.CommandServices;
-using agrisynth_backend.Collaboration.Application.QueryServices;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -56,19 +51,6 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ITerrainRepository, TerrainRepository>();
 builder.Services.AddScoped<ITerrainCommandService, TerrainCommandService>();
 builder.Services.AddScoped<ITerrainQueryService, TerrainQueryService>();
-
-// Collaboration Bounded Context Dependency Injections
-builder.Services.AddScoped<ITeamRepository, TeamRepository>();
-builder.Services.AddScoped<IWorkerRepository, WorkerRepository>();
-builder.Services.AddScoped<ITeamWorkerRepository, TeamWorkerRepository>();
-
-builder.Services.AddScoped<ITeamCommandService, TeamCommandService>();
-builder.Services.AddScoped<IWorkerCommandService, WorkerCommandService>();
-builder.Services.AddScoped<ITeamWorkerCommandService, TeamWorkerCommandService>();
-
-builder.Services.AddScoped<ITeamQueryService, TeamQueryService>();
-builder.Services.AddScoped<IWorkerQueryService, WorkerQueryService>();
-builder.Services.AddScoped<ITeamWorkerQueryService, TeamWorkerQueryService>();
 
 var app = builder.Build();
 
