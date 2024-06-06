@@ -23,7 +23,7 @@ public class MachinerysController(
         var machinery = await machineryCommandService.Handle(createMachineryCommand);
         if (machinery is null) return BadRequest();
         var machineryResource = MachineryResourceFromEntityAssembler.ToResourceFromEntity(machinery);
-        return CreatedAtAction(nameof(GetMachineryById), new { id = machineryResource.Id }, machineryResource);  // Asegúrate de usar "id" aquí
+        return CreatedAtAction(nameof(GetMachineryById), new { id = machineryResource.Id }, machineryResource);
     }
 
     [HttpGet("{id:int}")]

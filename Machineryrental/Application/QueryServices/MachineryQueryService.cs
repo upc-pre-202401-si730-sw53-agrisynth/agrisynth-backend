@@ -11,10 +11,8 @@ public class MachineryQueryService(IMachineryRepository machineryRepository) : I
     {
         return await machineryRepository.ListAsync();
     }
-    
     public async Task<Machinery?> Handle(GetMachineryByIdQuery query)
     {
         return await machineryRepository.FindByIdAsync(query.MachineryId);
     }
-    
 }

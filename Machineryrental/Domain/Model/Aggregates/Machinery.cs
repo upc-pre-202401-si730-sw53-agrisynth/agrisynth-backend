@@ -20,6 +20,7 @@ public class Machinery
     public Machinery(CreateMachineryCommand command)
     {
         this.Name = command.Name;
+        this.Price = command.Price;
         this.ImageUrl = command.ImageUrl;
     }
 
