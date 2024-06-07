@@ -5,7 +5,7 @@ namespace agrisynth_backend.Documents.Interfaces.REST.Transform;
 
 public class UpdateDocumentCommandFromResourceAssembler
 {
-    public static UpdateDocumentCommand ToCommandFromResource(UpdateDocumentResource resource)
+    public static UpdateDocumentCommand ToCommandFromResource(int id,UpdateDocumentResource resource)
     {
         return new UpdateDocumentCommand(resource.Id, resource.Name);
     }

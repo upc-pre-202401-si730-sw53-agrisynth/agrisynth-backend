@@ -56,7 +56,7 @@ public class DocumentCommandService(IDocumentRepository documentRepository, IUni
         }
         try
         {
-            //document.Update(command);
+            documentRepository.Update(document);
             await unitOfWork.CompleteAsync();
             return document;
         }
