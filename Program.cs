@@ -15,7 +15,13 @@ using agrisynth_backend.Machineryrental.Application.QueryServices;
 using agrisynth_backend.Machineryrental.Domain.Repositories;
 using agrisynth_backend.Machineryrental.Domain.Services;
 using agrisynth_backend.Machineryrental.Infrastructure.Persistence.EFC.Repositories;
-
+using agrisynth_backend.Profiles.Application.Internal.CommandServices;
+using agrisynth_backend.Profiles.Application.Internal.QueryServices;
+using agrisynth_backend.Profiles.Domain.Repositories;
+using agrisynth_backend.Profiles.Domain.Services;
+using agrisynth_backend.Profiles.Infrastructure.Persistence.EFC.Repositories;
+using agrisynth_backend.Profiles.Interfaces.ACL;
+using agrisynth_backend.Profiles.Interfaces.ACL.Services;
 using agrisynth_backend.Resource.Application.CommandServices;
 using agrisynth_backend.Resource.Application.QueryServices;
 using agrisynth_backend.Resource.Domain.Repositories;
@@ -59,7 +65,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
                 .EnableSensitiveDataLogging()
                 .EnableDetailedErrors();
 });
-
+// Configure Lowercase URLs
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
 // Configure Dependency Injections
@@ -94,6 +100,12 @@ builder.Services.AddScoped<ITeamWorkerQueryService, TeamWorkerQueryService>();
 builder.Services.AddScoped<IResourceItemRepository, ResourceItemRepository>();
 builder.Services.AddScoped<IResourceItemCommandService, ResourceItemCommandService>();
 builder.Services.AddScoped<IResourceItemQueryService, ResourceItemQueryService>();
+
+// Profiles Bounded Context Injection Configuration
+builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
+builder.Services.AddScoped<IProfileCommandService, ProfileCommandService>();
+builder.Services.AddScoped<IProfileQueryService, ProfileQueryService>();
+builder.Services.AddScoped<IProfilesContextFacade, ProfilesContextFacade>();
 
 var app = builder.Build();
 
