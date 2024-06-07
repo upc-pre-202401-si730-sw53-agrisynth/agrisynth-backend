@@ -3,6 +3,7 @@ using agrisynth_backend.Collaboration.Domain.Model.Entities;
 using agrisynth_backend.Documents.Domain.Model.Aggregates;
 using agrisynth_backend.Landrental.Domain.Model.Aggregates;
 using agrisynth_backend.Machineryrental.Domain.Model.Aggregates;
+using agrisynth_backend.Profiles.Domain.Model.Aggregates;
 using agrisynth_backend.Resource.Domain.Model.Aggregates;
 using agrisynth_backend.Shared.Infrastructure.Persistence.EFC.Configuration.Extensions;
 using EntityFrameworkCore.CreatedUpdatedDate.Extensions;
@@ -90,6 +91,44 @@ namespace agrisynth_backend.Shared.Infrastructure.Persistence.EFC.Configuration
                 .WithMany()
                 .HasForeignKey(tw => tw.WorkerId);
 
+            // Profiles Context
+        
+            builder.Entity<Profile>().HasKey(p => p.Id);
+            builder.Entity<Profile>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+        
+            builder.Entity<Profile>().OwnsOne(p => p.Name,
+                n =>
+                {
+                    n.WithOwner().HasForeignKey("Id");
+                    n.Property(p => p.FirstName).HasColumnName("FirstName");
+                    n.Property(p => p.LastName).HasColumnName("LastName");
+                    n.Property(p => p.UserName).HasColumnName("UserName");
+                });
+
+            builder.Entity<Profile>().OwnsOne(p => p.Email,
+                e =>
+                {
+                    e.WithOwner().HasForeignKey("Id");
+                    e.Property(a => a.Address).HasColumnName("EmailAddress");
+                });
+
+            builder.Entity<Profile>().OwnsOne(p => p.Phone,
+                ph =>
+                {
+                    ph.WithOwner().HasForeignKey("Id");
+                    ph.Property(pn => pn.AreaCode).HasColumnName("AreaCode");
+                    ph.Property(pn => pn.Number).HasColumnName("PhoneNumber");
+                }
+            );
+
+            builder.Entity<Profile>().OwnsOne(i => i.IdNumber,
+                id =>
+                {
+                    id.WithOwner().HasForeignKey("Id");
+                    id.Property(idn => idn.IdentityNumber).HasColumnName("IdentificationNumber");
+                }
+            );
+            
             builder.UseSnakeCaseWithPluralizedTableNamingConvention();
         }
 
