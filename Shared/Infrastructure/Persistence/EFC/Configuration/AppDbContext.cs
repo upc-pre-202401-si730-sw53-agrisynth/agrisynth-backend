@@ -1,6 +1,7 @@
 using agrisynth_backend.Landrental.Domain.Model.Aggregates;
 using agrisynth_backend.Collaboration.Domain.Model.Aggregates;
 using agrisynth_backend.Collaboration.Domain.Model.Entities;
+using agrisynth_backend.Machineryrental.Domain.Model.Aggregates;
 using agrisynth_backend.Shared.Infrastructure.Persistence.EFC.Configuration.Extensions;
 using EntityFrameworkCore.CreatedUpdatedDate.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -34,6 +35,13 @@ namespace agrisynth_backend.Shared.Infrastructure.Persistence.EFC.Configuration
             builder.Entity<Terrain>().Property(f => f.Rent).IsRequired();
             builder.Entity<Terrain>().Property(f => f.ImageUrl).IsRequired();
 
+            // Machinerys Context
+            builder.Entity<Machinery>().ToTable("Machinerys");
+            builder.Entity<Machinery>().HasKey(f => f.Id);
+            builder.Entity<Machinery>().Property(f => f.Name).IsRequired();
+            builder.Entity<Machinery>().Property(f => f.Price).IsRequired();
+            builder.Entity<Machinery>().Property(f => f.ImageUrl).IsRequired();
+
             // Team Context
             builder.Entity<Team>().ToTable("Teams");
             builder.Entity<Team>().HasKey(t => t.Id);
@@ -46,7 +54,7 @@ namespace agrisynth_backend.Shared.Infrastructure.Persistence.EFC.Configuration
             builder.Entity<Worker>().Property(w => w.Id).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<Worker>().Property(w => w.Name).IsRequired().HasMaxLength(100);
 
-            // TeamWork er Context
+            // TeamWorker Context
             builder.Entity<TeamWorker>().ToTable("TeamWorkers");
             builder.Entity<TeamWorker>().HasKey(tw => tw.Id);
             builder.Entity<TeamWorker>().Property(tw => tw.Id).IsRequired().ValueGeneratedOnAdd();
