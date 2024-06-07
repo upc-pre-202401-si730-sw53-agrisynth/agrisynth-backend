@@ -2,7 +2,10 @@ using agrisynth_backend.Landrental.Domain.Model.Aggregates;
 using agrisynth_backend.Collaboration.Domain.Model.Aggregates;
 using agrisynth_backend.Collaboration.Domain.Model.Entities;
 using agrisynth_backend.Machineryrental.Domain.Model.Aggregates;
+using agrisynth_backend.Resource.Domain.Model.Aggregates;
+
 using agrisynth_backend.Shared.Infrastructure.Persistence.EFC.Configuration.Extensions;
+
 using EntityFrameworkCore.CreatedUpdatedDate.Extensions;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,7 +25,7 @@ namespace agrisynth_backend.Shared.Infrastructure.Persistence.EFC.Configuration
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            
+
             // Terrains Context
             builder.Entity<Terrain>().ToTable("Terrains");
             builder.Entity<Terrain>().HasKey(f => f.Id);
@@ -41,6 +44,16 @@ namespace agrisynth_backend.Shared.Infrastructure.Persistence.EFC.Configuration
             builder.Entity<Machinery>().Property(f => f.Name).IsRequired();
             builder.Entity<Machinery>().Property(f => f.Price).IsRequired();
             builder.Entity<Machinery>().Property(f => f.ImageUrl).IsRequired();
+
+            // ResourceItems Context
+            builder.Entity<ResourceItem>().ToTable("ResourceItems");
+            builder.Entity<ResourceItem>().HasKey(f => f.Id);
+            builder.Entity<ResourceItem>().Property(f => f.Name).IsRequired();
+            builder.Entity<ResourceItem>().Property(f => f.Quantity).IsRequired();
+            builder.Entity<ResourceItem>().Property(f => f.Type).IsRequired();
+            builder.Entity<ResourceItem>().Property(f => f.Purchase).IsRequired();
+            builder.Entity<ResourceItem>().Property(f => f.Sale).IsRequired();
+            builder.Entity<ResourceItem>().Property(f => f.ImageUrl).IsRequired();
 
             // Team Context
             builder.Entity<Team>().ToTable("Teams");
