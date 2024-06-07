@@ -6,5 +6,7 @@ namespace agrisynth_backend.Documents.Domain.Services;
 public interface IDocumentCommandService
 {
     Task<Document?> Handle(CreateDocumentCommand command);
+    Task<Document?> Handle(DeleteDocumentCommand command);
+    Task<Document?> Handle(UpdateDocumentCommand command);
 
 }

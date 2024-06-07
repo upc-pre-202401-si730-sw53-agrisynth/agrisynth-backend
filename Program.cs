@@ -12,6 +12,11 @@ using agrisynth_backend.Collaboration.Domain.Services;
 using agrisynth_backend.Collaboration.Infrastructure.Persistence.EFC.Repositories;
 using agrisynth_backend.Collaboration.Application.CommandServices;
 using agrisynth_backend.Collaboration.Application.QueryServices;
+using agrisynth_backend.Documents.Application.CommandServices;
+using agrisynth_backend.Documents.Application.QueryServices;
+using agrisynth_backend.Documents.Domain.Repositories;
+using agrisynth_backend.Documents.Domain.Services;
+using agrisynth_backend.Documents.Infrastructure.Persistence.EFC.Repositories;
 using agrisynth_backend.Machineryrental.Application.CommandServices;
 using agrisynth_backend.Machineryrental.Application.QueryServices;
 using agrisynth_backend.Machineryrental.Domain.Repositories;
@@ -65,6 +70,10 @@ builder.Services.AddScoped<ITerrainQueryService, TerrainQueryService>();
 builder.Services.AddScoped<IMachineryRepository, MachineryRepository>();
 builder.Services.AddScoped<IMachineryCommandService, MachineryCommandService>();
 builder.Services.AddScoped<IMachineryQueryService, MachineryQueryService>();
+// Documents Bounded Context Dependency Injections
+builder.Services.AddScoped<IDocumentRepository, DocumentRepository>();
+builder.Services.AddScoped<IDocumentCommandService, DocumentCommandService>();
+builder.Services.AddScoped<IDocumentQueryService, DocumentQueryService>();
 
 
 // Collaboration Bounded Context Dependency Injections

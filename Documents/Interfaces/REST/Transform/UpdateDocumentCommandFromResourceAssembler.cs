@@ -1,0 +1,12 @@
+using agrisynth_backend.Documents.Domain.Model.Commands;
+using agrisynth_backend.Documents.Interfaces.REST.Resources;
+
+namespace agrisynth_backend.Documents.Interfaces.REST.Transform;
+
+public class UpdateDocumentCommandFromResourceAssembler
+{
+    public static UpdateDocumentCommand ToCommandFromResource(UpdateDocumentResource resource)
+    {
+        return new UpdateDocumentCommand(resource.Id, resource.Name);
+    }
+}
