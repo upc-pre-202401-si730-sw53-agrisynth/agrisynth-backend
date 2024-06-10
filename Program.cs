@@ -142,6 +142,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+if (app.Environment.IsProduction())
+{
+    DotNetEnv.Env.Load("./env.development");
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
