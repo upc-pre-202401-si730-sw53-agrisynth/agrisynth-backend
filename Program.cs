@@ -8,6 +8,17 @@ using agrisynth_backend.Documents.Application.QueryServices;
 using agrisynth_backend.Documents.Domain.Repositories;
 using agrisynth_backend.Documents.Domain.Services;
 using agrisynth_backend.Documents.Infrastructure.Persistence.EFC.Repositories;
+using agrisynth_backend.IAM.Application.Internal.CommandServices;
+using agrisynth_backend.IAM.Application.Internal.OutboundServices;
+using agrisynth_backend.IAM.Application.Internal.QueryServices;
+using agrisynth_backend.IAM.Domain.Repositories;
+using agrisynth_backend.IAM.Domain.Services;
+using agrisynth_backend.IAM.Infrastructure.Hashing.BCrypt.Services;
+using agrisynth_backend.IAM.Infrastructure.Persistence.EFC.Repositories;
+using agrisynth_backend.IAM.Infrastructure.Tokens.JWT.Configuration;
+using agrisynth_backend.IAM.Infrastructure.Tokens.JWT.Services;
+using agrisynth_backend.IAM.Interfaces.ACL;
+using agrisynth_backend.IAM.Interfaces.ACL.Services;
 using agrisynth_backend.Landrental.Application.CommandServices;
 using agrisynth_backend.Landrental.Application.QueryServices;
 using agrisynth_backend.Landrental.Domain.Repositories;
@@ -123,6 +134,15 @@ builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
 builder.Services.AddScoped<IProfileCommandService, ProfileCommandService>();
 builder.Services.AddScoped<IProfileQueryService, ProfileQueryService>();
 builder.Services.AddScoped<IProfilesContextFacade, ProfilesContextFacade>();
+
+// IAM Bounded Context Injection Configuration
+builder.Services.Configure<TokenSettings>(builder.Configuration.GetSection("TokenSettings"));
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserCommandService, UserCommandService>();
+builder.Services.AddScoped<IUserQueryService, UserQueryService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IHashingService, HashingService>();
+builder.Services.AddScoped<IIamContextFacade, IamContextFacade>();
 
 var app = builder.Build();
 

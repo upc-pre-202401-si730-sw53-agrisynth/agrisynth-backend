@@ -1,3 +1,3 @@
 ﻿namespace agrisynth_backend.IAM.Domain.Model.Commands;
 
-public record SignUpCommand();
+public record SignUpCommand(string Username, string Password);
