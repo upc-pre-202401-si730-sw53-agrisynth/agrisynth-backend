@@ -1,8 +1,8 @@
 ﻿using System.Net.Mime;
 using agrisynth_backend.IAM.Domain.Services;
+using agrisynth_backend.IAM.Infrastructure.Pipeline.Middleware.Attributes;
 using agrisynth_backend.IAM.Interfaces.REST.Resources;
 using agrisynth_backend.IAM.Interfaces.REST.Transform;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace agrisynth_backend.IAM.Interfaces.REST;
