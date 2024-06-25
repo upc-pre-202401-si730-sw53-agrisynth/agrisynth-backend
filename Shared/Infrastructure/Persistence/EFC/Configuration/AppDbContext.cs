@@ -1,6 +1,7 @@
 using agrisynth_backend.Collaboration.Domain.Model.Aggregates;
 using agrisynth_backend.Collaboration.Domain.Model.Entities;
 using agrisynth_backend.Documents.Domain.Model.Aggregates;
+using agrisynth_backend.IAM.Domain.Model.Aggregates;
 using agrisynth_backend.Landrental.Domain.Model.Aggregates;
 using agrisynth_backend.Machineryrental.Domain.Model.Aggregates;
 using agrisynth_backend.Profiles.Domain.Model.Aggregates;
@@ -129,6 +130,13 @@ namespace agrisynth_backend.Shared.Infrastructure.Persistence.EFC.Configuration
                 }
             );
             
+            // IAM Context
+            builder.Entity<User>().HasKey(u => u.Id);
+            builder.Entity<User>().Property(u => u.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<User>().Property(u => u.Username).IsRequired();
+            builder.Entity<User>().Property(u => u.PasswordHash).IsRequired();
+            
+            // Apply SnakeCase Naming Convention
             builder.UseSnakeCaseWithPluralizedTableNamingConvention();
         }
 

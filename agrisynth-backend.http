@@ -1,4 +1,4 @@
-@agrisynth_backend_HostAddress = http://localhost:5100
+@agrisynth_backend_HostAddress = http://localhost:3000
 
 GET {{agrisynth_backend_HostAddress}}/weatherforecast/
 Accept: application/json
