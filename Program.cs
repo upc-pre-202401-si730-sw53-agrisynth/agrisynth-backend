@@ -57,7 +57,7 @@ builder.Services.AddControllers(options =>
     options.Conventions.Add(new KebabCaseRouteNamingConvention());
 });
 
-var connectionString = $"server=localhost;user=root;password=12345678;database=agrisynth";
+var connectionString = $"server=localhost;user=root;password=root;database=agrisynth";
 
 // Configure Database Context and Logging Level
 builder.Services.AddDbContext<AppDbContext>(options =>

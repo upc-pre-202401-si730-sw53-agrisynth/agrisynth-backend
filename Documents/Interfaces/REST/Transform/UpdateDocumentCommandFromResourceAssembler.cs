@@ -7,6 +7,6 @@ public class UpdateDocumentCommandFromResourceAssembler
 {
     public static UpdateDocumentCommand ToCommandFromResource(int id,UpdateDocumentResource resource)
     {
-        return new UpdateDocumentCommand(resource.Id, resource.Name);
+        return new UpdateDocumentCommand(id, resource.Name);
     }
 }
