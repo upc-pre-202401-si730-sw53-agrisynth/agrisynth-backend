@@ -16,5 +16,16 @@ public class Worker
     {
         Name = command.Name;
     }
+    
+    public Worker(UpdateWorkerCommand command)
+    {
+        Id = command.Id;
+        Name = command.Name;
+    }
+
+    public void Update(UpdateWorkerCommand command)
+    {
+        Name = command.Name;
+    }
 
 }

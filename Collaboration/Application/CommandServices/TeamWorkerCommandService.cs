@@ -31,4 +31,41 @@ public class TeamWorkerCommandService : ITeamWorkerCommandService
             return null;
         }
     }
+
+    public async Task<TeamWorker?> Handle(UpdateTeamWorkerCommand command)
+    {
+        var teamWorker = await _teamWorkerRepository.FindByIdAsync(command.Id);
+        if (teamWorker == null) return null;
+
+        teamWorker.Update(command);
+        try
+        {
+            _teamWorkerRepository.Update(teamWorker);
+            await _unitOfWork.CompleteAsync();
+            return teamWorker;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"An error occurred while updating the team worker: {e.Message}");
+            return null;
+        }
+    }
+
+    public async Task<bool> Handle(DeleteTeamWorkerCommand command)
+    {
+        var teamWorker = await _teamWorkerRepository.FindByIdAsync(command.Id);
+        if (teamWorker == null) return false;
+
+        try
+        {
+            _teamWorkerRepository.Remove(teamWorker);
+            await _unitOfWork.CompleteAsync();
+            return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"An error occurred while deleting the team worker: {e.Message}");
+            return false;
+        }
+    }
 }
