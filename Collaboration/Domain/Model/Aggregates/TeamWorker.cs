@@ -22,4 +22,9 @@ public partial class TeamWorker
         TeamId = command.TeamId;
         WorkerId = command.WorkerId;
     }
+    public void Update(UpdateTeamWorkerCommand command)
+    {
+        TeamId = command.TeamId;
+        WorkerId = command.WorkerId;
+    }
 }

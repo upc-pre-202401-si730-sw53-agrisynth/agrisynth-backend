@@ -1,6 +1,3 @@
 namespace agrisynth_backend.Collaboration.Domain.Model.Commands;
 
-public class UpdateTeamWorkerCommand
-{
-    
-}
+public record UpdateTeamWorkerCommand(int Id, int TeamId, int WorkerId);
