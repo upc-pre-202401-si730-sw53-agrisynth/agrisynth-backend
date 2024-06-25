@@ -31,4 +31,43 @@ public class TeamCommandService : ITeamCommandService
             return null;
         }
     }
+
+    public async Task<Team?> Handle(UpdateTeamCommand command)
+    {
+        var team = await _teamRepository.FindByIdAsync(command.Id);
+        if (team == null) return null;
+
+        team.Update(command);
+        try
+        {
+            _teamRepository.Update(team);
+            await _unitOfWork.CompleteAsync();
+            return team;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"An error occurred while updating the team: {e.Message}");
+            return null;
+        }
+    }
+
+    public async Task<bool> Handle(DeleteTeamCommand command)
+    {
+        var team = await _teamRepository.FindByIdAsync(command.Id);
+        if (team == null) return false;
+
+        try
+        {
+            _teamRepository.Remove(team);
+            await _unitOfWork.CompleteAsync();
+            return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"An error occurred while deleting the team: {e.Message}");
+            return false;
+        }
+    }
 }
+
+
