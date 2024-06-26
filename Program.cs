@@ -57,7 +57,16 @@ builder.Services.AddControllers(options =>
     options.Conventions.Add(new KebabCaseRouteNamingConvention());
 });
 
-var connectionString = $"server=localhost;user=root;password=12345678;database=agrisynth";
+// Add Database Connection String
+/*var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");*/
+var DB_HOST = Environment.GetEnvironmentVariable("DB_HOST");
+var DB_PORT = Environment.GetEnvironmentVariable("DB_PORT");
+var DB_NAME = Environment.GetEnvironmentVariable("DB_NAME");
+var DB_USER = Environment.GetEnvironmentVariable("DB_USER");
+var DB_PASSWORD = Environment.GetEnvironmentVariable("DB_PASSWORD");
+
+var connectionString =
+    $"database={DB_NAME};host={DB_HOST};port={DB_PORT};user={DB_USER};password={DB_PASSWORD};";
 
 // Configure Database Context and Logging Level
 builder.Services.AddDbContext<AppDbContext>(options =>
