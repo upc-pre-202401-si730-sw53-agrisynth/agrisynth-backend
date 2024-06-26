@@ -1,4 +1,5 @@
 ﻿using System.Net.Mime;
+using agrisynth_backend.Resource.Domain.Model.Commands;
 using agrisynth_backend.Resource.Domain.Model.Queries;
 using agrisynth_backend.Resource.Domain.Services;
 using agrisynth_backend.Resource.Interfaces.REST.Resources;
@@ -44,6 +45,22 @@ public class ResourceItemsController(
         return Ok(resourceItemResources);
     }
 
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> DeleteResourceItem(int id)
+    {
+        var deleteResourceItemCommand = new DeleteResourceItemCommand(id);
+        var resourceItem = await resourceItemCommandService.Handle(deleteResourceItemCommand);
+        if (resourceItem == null) return NotFound();
+        return NoContent();
+    }
 
-
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> UpdateResourceItem(int id, UpdateResourceItemResource resource)
+    {
+        var updateResourceItemCommand = UpdateResourceItemCommandFromResourceAssembler.ToCommandFromResource(id, resource);
+        var resourceItem = await resourceItemCommandService.Handle(updateResourceItemCommand);
+        if (resourceItem == null) return NotFound();
+        var resourceItemResource = ResourceItemResourceFromEntityAssembler.ToResourceFromEntity(resourceItem);
+        return Ok(resourceItemResource);
+    }
 }

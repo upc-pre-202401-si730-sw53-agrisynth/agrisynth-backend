@@ -14,7 +14,6 @@ public class ResourceItemQueryService(IResourceItemRepository resourceItemReposi
 
     public async Task<ResourceItem?> Handle(GetResourceItemByIdQuery query)
     {
-        return await resourceItemRepository.FindByIdAsync(query.ResourceItemId);
+        return await resourceItemRepository.FindByIdAsync(query.Id);
     }
-
 }

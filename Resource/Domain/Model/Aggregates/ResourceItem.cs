@@ -31,4 +31,24 @@ public class ResourceItem
         this.Sale = command.Sale;
         this.ImageUrl = command.ImageUrl;
     }
+
+    public ResourceItem(UpdateResourceItemCommand command)
+    {
+        this.Name = command.Name;
+        this.Quantity = command.Quantity;
+        this.Type = command.Type;
+        this.Purchase = command.Purchase;
+        this.Sale = command.Sale;
+        this.ImageUrl = command.ImageUrl;
+    }
+
+    public void Update(UpdateResourceItemCommand command)
+    {
+        this.Name = command.Name;
+        this.Quantity = command.Quantity;
+        this.Type = command.Type;
+        this.Purchase = command.Purchase;
+        this.Sale = command.Sale;
+        this.ImageUrl = command.ImageUrl;
+    }
 }

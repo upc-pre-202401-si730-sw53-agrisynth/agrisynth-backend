@@ -11,8 +11,8 @@ public class ResourceItemRepository : BaseRepository<ResourceItem>, IResourceIte
     public ResourceItemRepository(AppDbContext context)
         : base(context) { }
 
-    public Task<ResourceItem?> FindResourceItemByIdSync(int id)
-    {
-        return Context.Set<ResourceItem>().Where(p => p.Id == id).FirstOrDefaultAsync();
-    }
+    /*    public Task<ResourceItem?> FindResourceItemByIdSync(int id)
+        {
+            return Context.Set<ResourceItem>().Where(p => p.Id == id).FirstOrDefaultAsync();
+        }*/
 }
