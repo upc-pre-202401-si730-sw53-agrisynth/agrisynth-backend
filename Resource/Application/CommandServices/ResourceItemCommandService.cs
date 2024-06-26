@@ -23,4 +23,40 @@ public class ResourceItemCommandService(IResourceItemRepository resourceItemRepo
             return null;
         }
     }
+
+    public async Task<ResourceItem?> Handle(UpdateResourceItemCommand command)
+    {
+        var resourceItem = await resourceItemRepository.FindByIdAsync(command.Id);
+        if (resourceItem== null) return null;
+        resourceItem.Update(command);
+        try
+        {
+            resourceItemRepository.Update(resourceItem);
+            await unitOfWork.CompleteAsync();
+            return resourceItem;
+        }
+        catch (Exception e)
+        {
+          Console.WriteLine($"An error occurred while updating the resource: {e.Message}");  
+            return null;
+        }
+    }
+    
+    public async Task<ResourceItem?> Handle(DeleteResourceItemCommand command)
+    {
+        var resourceItem = await resourceItemRepository.FindByIdAsync(command.Id);
+        if (resourceItem == null) return null;
+
+        try
+        {
+            resourceItemRepository.Remove(resourceItem);
+            await unitOfWork.CompleteAsync();
+            return resourceItem;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"An error occurred while deleting the resourceItem: {e.Message}");
+            return null;
+        }
+    }
 }

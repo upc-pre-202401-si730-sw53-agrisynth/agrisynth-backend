@@ -5,5 +5,4 @@ namespace agrisynth_backend.Resource.Domain.Repositories;
 
 public interface IResourceItemRepository : IBaseRepository<ResourceItem>
 {
-
 }
