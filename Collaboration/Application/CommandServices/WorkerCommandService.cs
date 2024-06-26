@@ -31,4 +31,41 @@ public class WorkerCommandService : IWorkerCommandService
             return null;
         }
     }
+
+    public async Task<Worker?> Handle(UpdateWorkerCommand command)
+    {
+        var worker = await _workerRepository.FindByIdAsync(command.Id);
+        if (worker == null) return null;
+
+        worker.Update(command);
+        try
+        {
+            _workerRepository.Update(worker);
+            await _unitOfWork.CompleteAsync();
+            return worker;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"An error occurred while updating the worker: {e.Message}");
+            return null;
+        }
+    }
+
+    public async Task<bool> Handle(DeleteWorkerCommand command)
+    {
+        var worker = await _workerRepository.FindByIdAsync(command.Id);
+        if (worker == null) return false;
+
+        try
+        {
+            _workerRepository.Remove(worker);
+            await _unitOfWork.CompleteAsync();
+            return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"An error occurred while deleting the worker: {e.Message}");
+            return false;
+        }
+    }
 }

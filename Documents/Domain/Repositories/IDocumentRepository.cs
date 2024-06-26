@@ -5,5 +5,5 @@ namespace agrisynth_backend.Documents.Domain.Repositories;
 
 public interface IDocumentRepository : IBaseRepository<Document>
 {
-    Task<Document?> FindDocumentByIdSync(int id);
+    
 } 

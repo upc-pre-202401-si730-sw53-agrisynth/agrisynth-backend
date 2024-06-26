@@ -6,16 +6,24 @@ using agrisynth_backend.Shared.Domain.Repositories;
 
 namespace agrisynth_backend.Documents.Application.CommandServices;
 
-public class DocumentCommandService(IDocumentRepository documentRepository, IUnitOfWork unitOfWork) : IDocumentCommandService
+public class DocumentCommandService : IDocumentCommandService
 {
+    private readonly IDocumentRepository _documentRepository;
+    private readonly IUnitOfWork _unitOfWork;
+
+    public DocumentCommandService(IDocumentRepository documentRepository, IUnitOfWork unitOfWork)
+    {
+        _documentRepository = documentRepository;
+        _unitOfWork = unitOfWork;
+    }
 
     public async Task<Document?> Handle(CreateDocumentCommand command)
     {
         var document = new Document(command);
         try
         {
-            await documentRepository.AddAsync(document);
-            await unitOfWork.CompleteAsync();
+            await _documentRepository.AddAsync(document);
+            await _unitOfWork.CompleteAsync();
             return document;
         }
         catch (Exception e)
@@ -24,40 +32,16 @@ public class DocumentCommandService(IDocumentRepository documentRepository, IUni
             return null;
         }
     }
-    
-    public async Task<Document?> Handle(DeleteDocumentCommand command)
-    {
-        var document = await documentRepository.FindDocumentByIdSync(command.Id);
-        if (document == null)
-        {
-            Console.WriteLine($"Document with id {command.Id} not found");
-            return null;
-        }
-        try
-        {
-            documentRepository.Remove(document);
-            await unitOfWork.CompleteAsync();
-            return document;
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"An error occurred while deleting the document: {e.Message}");
-            return null;
-        }
-    }
-    
+
     public async Task<Document?> Handle(UpdateDocumentCommand command)
     {
-        var document = await documentRepository.FindDocumentByIdSync(command.Id);
-        if (document == null)
-        {
-            Console.WriteLine($"Document with id {command.Id} not found");
-            return null;
-        }
+        var document = await _documentRepository.FindByIdAsync(command.Id);
+        if (document == null) return null;
+        document.Update(command);
         try
         {
-            documentRepository.Update(document);
-            await unitOfWork.CompleteAsync();
+            _documentRepository.Update(document);
+            await _unitOfWork.CompleteAsync();
             return document;
         }
         catch (Exception e)
@@ -67,5 +51,21 @@ public class DocumentCommandService(IDocumentRepository documentRepository, IUni
         }
     }
 
-   
+    public async Task<Document?> Handle(DeleteDocumentCommand command)
+    {
+        var document = await _documentRepository.FindByIdAsync(command.Id);
+        if (document == null) return null;
+
+        try
+        {
+            _documentRepository.Remove(document);
+            await _unitOfWork.CompleteAsync();
+            return document;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"An error occurred while deleting the document: {e.Message}");
+            return null;
+        }
+    }
 }

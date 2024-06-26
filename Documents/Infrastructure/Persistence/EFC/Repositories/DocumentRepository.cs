@@ -13,8 +13,4 @@ public class DocumentRepository: BaseRepository<Document>, IDocumentRepository
         
     }
     
-    public Task<Document?> FindDocumentByIdSync(int id)
-    {
-        return Context.Set<Document>().Where(p => p.Id == id).FirstOrDefaultAsync();
-    }
 }

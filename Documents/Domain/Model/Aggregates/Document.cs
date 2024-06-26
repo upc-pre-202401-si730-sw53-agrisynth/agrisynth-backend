@@ -15,4 +15,12 @@ public class Document
     {
         this.Name = command.Name;
     }
+    public Document(UpdateDocumentCommand command)
+    {
+        this.Name = command.Name;
+    }
+    public void Update(UpdateDocumentCommand command)
+    {
+        this.Name = command.Name;
+    }
 }
